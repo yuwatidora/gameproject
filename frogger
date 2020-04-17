@@ -1,0 +1,509 @@
+import sys
+
+import pygame
+
+import time
+
+
+
+def main():
+
+
+
+    pygame.init()
+
+
+
+    
+
+    main_surface = pygame.display.set_mode((500,700))
+
+
+
+    # initialize parameters before the loop
+
+
+    #artifactpositions=[(
+
+
+    #Colors
+
+    BLACK = (0,0,0)
+
+    WHITE = (255,255,255)
+
+    GREEN = (0,255,0)
+
+    RED   = (255,0,0)
+
+    BLUE = (43,143,230)
+
+    LIGHTBLUE = (175,217,254)
+
+    BROWN = (185,117,47)
+
+    
+
+    #Colors of blocks that are moving
+
+    
+
+    #Color of stones
+
+    colorstone = BLUE
+
+    colorstone1=BLUE
+
+    colorstone2=BLUE
+
+
+
+    #Color of daggers
+
+    colordagger=RED
+
+    colordagger1=RED
+
+    
+
+
+
+    #assign variable to frog
+
+    frog=pygame.rect.Rect(250,650,20,20)
+
+
+
+    #assign variable to aritfact
+
+    artifact=pygame.rect.Rect(350,650,10,10)
+
+    
+
+    #daggers
+
+    dagger=pygame.rect.Rect(0,400,70,20)
+
+    dagger1=pygame.rect.Rect(200,400,70,20)
+
+
+
+    dagger2=pygame.rect.Rect(100,450,70,20)
+
+    dagger3=pygame.rect.Rect(300,450,70,20)
+
+
+
+    dagger4=pygame.rect.Rect(0,500,70,20)
+
+    
+
+    dagger5=pygame.rect.Rect(400,550,70,20)
+
+    dagger6=pygame.rect.Rect(600,550,70,20)
+
+    #stones
+
+    stone=pygame.rect.Rect(100,100,30,40)
+
+    stone1=pygame.rect.Rect(200,100,30,40)
+
+    
+
+
+
+    stone3=pygame.rect.Rect(300,150,30,40)
+
+    stone4=pygame.rect.Rect(400,150,30,40)
+
+    stone5=pygame.rect.Rect(500,150,30,40)
+
+
+
+    stone6=pygame.rect.Rect(500,200,30,40)
+
+    stone7=pygame.rect.Rect(100,200,30,40)
+
+
+
+    stone8=pygame.rect.Rect(200,250,30,40)
+
+    stone9=pygame.rect.Rect(300,250,30,40)
+
+    stone10=pygame.rect.Rect(400,250,30,40)
+
+    
+
+    #lists 
+
+    daggerlist=[dagger,dagger1]
+
+    dagger2list=[dagger2,dagger3]
+
+    dagger3list=[dagger4]
+
+    dagger4list=[dagger5,dagger6]
+
+    
+
+    stonelist=[stone,stone1] 
+
+    stone2list=[stone3,stone4,stone5]
+
+    stone3list=[stone6,stone7]
+
+    stone4list=[stone8,stone9,stone10]
+
+    
+
+    # Below is the game loop.  It erases the old screen, changes the position
+
+    # and draws the new screen.
+
+    
+
+    while True:
+
+
+
+
+
+        #moving the frog
+
+        
+
+        for event in pygame.event.get():
+
+            if event.type == pygame.QUIT:
+
+                pygame.quit()
+
+                sys.exit()
+
+            if event.type == pygame.KEYDOWN:
+
+
+
+                if event.key == pygame.K_LEFT:
+
+                    frog.x-=10
+                    
+                    if frog.x==artifact.x-10 and frog.y==artifact.y:
+                        
+                        artifact.x-=10
+
+                elif event.key== pygame.K_RIGHT:
+
+                    frog.x+=10
+                    
+                    if frog.x==artifact.x+10 and frog.y==artifact.y:
+
+                        artifact.x+=10
+
+                elif event.key == pygame.K_DOWN:
+
+                    frog.y+=10
+
+                    if frog.y==artifact.y+10:
+
+                        artifact.y+=10
+
+                elif event.key == pygame.K_UP:
+
+                    frog.y-=10
+
+                    if frog.y==artifact.y-10:
+
+                        artifact.y-=10
+
+
+
+                
+
+                
+
+            
+
+
+
+        #events that happen when frog hits stone and dagger
+
+        hitblock=frog.collidelist(daggerlist)
+
+
+
+        hitblock5=frog.collidelist(dagger2list)
+
+        hitblock6=frog.collidelist(dagger3list)
+
+        hitblock7=frog.collidelist(dagger4list)
+
+        
+
+        hitblock1=frog.collidelist(stonelist)
+
+
+
+        hitblock2=frog.collidelist(stone2list)
+
+
+
+        hitblock3=frog.collidelist(stone3list)
+
+
+
+        hitblock4=frog.collidelist(stone4list)
+
+        #event of frog going on stone
+
+        if hitblock1==0:
+
+            frog.x += 3
+
+            artifact.x +=3
+
+            
+
+        elif hitblock1==1:
+
+            frog.x += 5
+
+            artifact.x +=5
+
+
+
+        elif hitblock2==0 or hitblock2==1 or hitblock2==2:
+
+            frog.x -= 4
+
+            artifact.x -=4
+
+        
+
+        elif hitblock3==0 or hitblock3==1:
+
+            frog.x += 10
+
+            artifact.x +=10
+
+
+
+        elif hitblock4==0 or hitblock4==1 or hitblock4==2:
+
+            frog.x += 4
+
+            artifact.x +=4
+
+
+
+#dagger kill
+
+
+
+        elif hitblock==0 or hitblock==1:
+
+            frog.x = 250
+
+            frog.y = 650
+
+            artifact.x = 100
+
+            artifact.y = 650
+
+            
+
+        elif hitblock5==0 or hitblock5==1:
+
+            frog.x = 250
+
+            frog.y = 650
+
+            artifact.x = 100
+
+            artifact.y = 650
+
+
+
+        elif hitblock6==0:
+
+            frog.x = 250
+
+            frog.y = 650
+
+            artifact.x = 100
+
+            artifact.y = 650
+
+
+
+        elif hitblock7==0 or hitblock7==1:
+
+            frog.x = 250
+
+            frog.y = 650
+
+            
+
+       
+
+        #for daggers to restart when they exit scrren    
+
+        for block in daggerlist:
+
+            
+
+            block.x = (block.x+8)%700
+
+
+
+        for block5 in dagger2list:
+
+            
+
+            block5.x = (block5.x-5)%700
+
+            
+
+        for block6 in dagger3list:
+
+            
+
+            block6.x = (block6.x+10)%700
+
+
+
+        for block7 in dagger4list:
+
+            
+
+            block7.x = (block7.x+4)%700
+
+
+
+        #for stones to restart when they exit screen   
+
+        for block1 in stonelist:
+
+            
+
+            block1.x = (block1.x+5)%700
+
+
+
+        for block2 in stone2list:
+
+            
+
+            block2.x = (block2.x-4)%700
+
+
+
+        for block3 in stone3list:
+
+            
+
+            block3.x = (block3.x+10)%700
+
+            
+
+        for block4 in stone4list:
+
+            
+
+            block4.x = (block4.x+4)%700
+
+        
+
+
+
+
+
+
+
+        
+
+
+
+
+
+        # redraw the screen
+
+
+
+        main_surface.fill((0,0,0))  # make the background color black in this example
+
+
+
+        #draw stones
+
+        pygame.draw.rect(main_surface,colorstone,stone)
+
+        pygame.draw.rect(main_surface,colorstone1,stone1)
+
+        pygame.draw.rect(main_surface,colorstone2,stone3)
+
+        pygame.draw.rect(main_surface,colorstone2,stone4)
+
+        pygame.draw.rect(main_surface,colorstone2,stone5)
+
+        pygame.draw.rect(main_surface,colorstone2,stone6) 
+
+        pygame.draw.rect(main_surface,colorstone2,stone7)
+
+        pygame.draw.rect(main_surface,colorstone2,stone8)
+
+        pygame.draw.rect(main_surface,colorstone2,stone9)
+
+        pygame.draw.rect(main_surface,colorstone2,stone10)
+
+        
+
+
+
+        #draw daggers
+
+        pygame.draw.rect(main_surface,colordagger,dagger)
+
+        pygame.draw.rect(main_surface,colordagger1,dagger1)
+
+        pygame.draw.rect(main_surface,colordagger,dagger2)
+
+        pygame.draw.rect(main_surface,colordagger,dagger3)
+
+        pygame.draw.rect(main_surface,colordagger,dagger4)
+
+        pygame.draw.rect(main_surface,colordagger,dagger5)
+
+        pygame.draw.rect(main_surface,colordagger,dagger6)
+    
+
+        #draw frog      
+
+        pygame.draw.rect(main_surface, GREEN,frog)
+
+
+        #draw artifacts
+
+        pygame.draw.rect(main_surface,(70,100,150),artifact)
+
+    
+
+        # flip the drawn surface onto the monitor
+
+        pygame.display.flip()
+
+
+
+
+
+    
+
+       # keep it from going too fast
+
+        time.sleep(0.05)  
+
+
+
+if __name__=='__main__':    
+
+    main()
