@@ -23,7 +23,7 @@ def main():
     # initialize parameters before the loop
 
 
-   
+    
 
 
     #Colors
@@ -76,7 +76,11 @@ def main():
 
     #assign variable to aritfact
 
-    artifact=pygame.rect.Rect(350,650,10,10)
+    artifact=pygame.rect.Rect(10,650,10,10)
+    artifact1=pygame.rect.Rect(150,650,10,10)
+    artifact2=pygame.rect.Rect(290,650,10,10)
+    artifact3=pygame.rect.Rect(430,650,10,10)
+    
 
     
 
@@ -192,6 +196,20 @@ def main():
                         
                         artifact.x-=10
 
+                    elif frog.x==artifact1.x-10 and frog.y==artifact1.y:
+                        
+                        artifact1.x-=10
+
+                    elif frog.x==artifact2.x-10 and frog.y==artifact2.y:
+                        
+                        artifact2.x-=10
+
+                    elif frog.x==artifact3.x-10 and frog.y==artifact3.y:
+                        
+                        artifact3.x-=10
+
+                        
+
                 elif event.key== pygame.K_RIGHT:
 
                     frog.x+=10
@@ -200,21 +218,62 @@ def main():
 
                         artifact.x+=10
 
+                    elif frog.x==artifact1.x+10 and frog.y==artifact1.y:
+
+                        artifact1.x+=10
+
+                    elif frog.x==artifact2.x+10 and frog.y==artifact2.y:
+
+                        artifact2.x+=10
+
+                    elif frog.x==artifact3.x+10 and frog.y==artifact3.y:
+
+                        artifact3.x+=10
+
+                        
+
                 elif event.key == pygame.K_DOWN:
 
                     frog.y+=10
 
-                    if frog.y==artifact.y+10:
+                    if frog.y==artifact.y+10 and frog.x==artifact.x:
 
                         artifact.y+=10
+
+                    elif frog.y==artifact1.y+10 and frog.x==artifact1.x:
+
+                        artifact1.y+=10
+
+                    elif frog.y==artifact2.y+10 and frog.x==artifact2.x:
+
+                        artifact2.y+=10
+
+                    elif frog.y==artifact3.y+10 and frog.x==artifact3.x:
+
+                        artifact3.y+=10
+                        
 
                 elif event.key == pygame.K_UP:
 
                     frog.y-=10
 
-                    if frog.y==artifact.y-10:
+                    if frog.y==artifact.y-10 and frog.x==artifact.x:
 
                         artifact.y-=10
+
+                    elif frog.y==artifact1.y-10 and frog.x==artifact1.x:
+
+                        artifact1.y-=10
+
+                    elif frog.y==artifact2.y-10 and frog.x==artifact2.x:
+
+                        artifact2.y-=10
+
+                    elif frog.y==artifact3.y-10 and frog.x==artifact3.x:
+
+                        artifact3.y-=10
+                        
+                
 
 
 
@@ -224,7 +283,24 @@ def main():
 
             
 
+        #when artifact arrives
 
+        if artifact.y <= 50:
+            artifact.x=10
+            artifact.y=10
+
+        if artifact1.y <= 50:
+            artifact1.x=150
+            artifact1.y=10
+
+        if artifact2.y <= 50:
+            artifact2.x=290
+            artifact2.y=10
+
+        if artifact3.y <= 50:
+            artifact3.x=430
+            artifact3.y=10
+                        
 
         #events that happen when frog hits stone and dagger
 
@@ -262,6 +338,12 @@ def main():
 
             artifact.x +=3
 
+            artifact1.x +=3
+
+            artifact2.x +=3
+
+            artifact3.x +=3
+
             
 
         elif hitblock1==1:
@@ -269,6 +351,12 @@ def main():
             frog.x += 5
 
             artifact.x +=5
+
+            artifact1.x +=5
+
+            artifact2.x +=5
+
+            artifact3.x +=5
 
 
 
@@ -278,6 +366,12 @@ def main():
 
             artifact.x -=4
 
+            artifact1.x -=4
+
+            artifact2.x -=4
+
+            artifact3.x -=4
+
         
 
         elif hitblock3==0 or hitblock3==1:
@@ -286,6 +380,12 @@ def main():
 
             artifact.x +=10
 
+            artifact1.x +=10
+
+            artifact2.x +=10
+
+            artifact3.x +=10
+
 
 
         elif hitblock4==0 or hitblock4==1 or hitblock4==2:
@@ -293,6 +393,12 @@ def main():
             frog.x += 4
 
             artifact.x +=4
+
+            artifact1.x +=4
+
+            artifact2.x +=4
+
+            artifact3.x +=4
 
 
 
@@ -306,9 +412,21 @@ def main():
 
             frog.y = 650
 
-            artifact.x = 100
+            artifact.x = 10
 
             artifact.y = 650
+
+            artifact1.x = 150
+
+            artifact1.y = 650
+
+            artifact2.x = 290
+
+            artifact2.y = 650
+
+            artifact3.x = 430
+
+            artifact3.y = 650
 
             
 
@@ -318,9 +436,22 @@ def main():
 
             frog.y = 650
 
-            artifact.x = 100
+            artifact.x = 10
 
             artifact.y = 650
+
+            artifact1.x = 150
+
+            artifact1.y = 650
+
+            artifact2.x = 290
+
+            artifact2.y = 650
+
+            artifact3.x = 430
+
+            artifact3.y = 650
+            
 
 
 
@@ -330,21 +461,44 @@ def main():
 
             frog.y = 650
 
-            artifact.x = 100
+            artifact.x = 10
 
             artifact.y = 650
 
+            artifact1.x = 150
 
+            artifact1.y = 650
 
+            artifact2.x = 290
+
+            artifact2.y = 650
+
+            artifact3.x = 430
+
+            artifact3.y = 650
+            
         elif hitblock7==0 or hitblock7==1:
 
             frog.x = 250
 
             frog.y = 650
 
-            
+            artifact.x = 10
 
-       
+            artifact.y = 650
+
+            artifact1.x = 150
+
+            artifact1.y = 650
+
+            artifact2.x = 290
+
+            artifact2.y = 650
+
+            artifact3.x = 430
+
+            artifact3.y = 650
+            
 
         #for daggers to restart when they exit scrren    
 
@@ -485,6 +639,10 @@ def main():
         #draw artifacts
 
         pygame.draw.rect(main_surface,(70,100,150),artifact)
+        pygame.draw.rect(main_surface,(70,100,150),artifact1)
+        pygame.draw.rect(main_surface,(70,100,150),artifact2)
+        pygame.draw.rect(main_surface,(70,100,150),artifact3)
+        
 
     
 
