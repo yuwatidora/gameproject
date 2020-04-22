@@ -4,30 +4,29 @@ import pygame
 
 import time
 
-
+import random
 
 def main():
 
-
-
     pygame.init()
-
-
-
-    
 
     main_surface = pygame.display.set_mode((500,700))
 
+    #initialize parameters before the loop
 
+    #mummy parameters
+    
+    mummyx_change=0
 
-    # initialize parameters before the loop
+    mummy_move = 0
 
+    artifact_appear = 0
 
+    coffin_choose=[]
+    
     
 
-
-    #Colors
-
+    #COLORs
     BLACK = (0,0,0)
 
     WHITE = (255,255,255)
@@ -42,466 +41,312 @@ def main():
 
     BROWN = (185,117,47)
 
-    
 
-    #Colors of blocks that are moving
-
-    
+    #Colors of blocks-----------------
 
     #Color of stones
-
-    colorstone = BLUE
-
-    colorstone1=BLUE
-
-    colorstone2=BLUE
-
-
+    colorstone =BLUE
 
     #Color of daggers
-
-    colordagger=RED
-
-    colordagger1=RED
-
+    colordagger= RED
     
 
-
-
-    #assign variable to frog
-
-    frog=pygame.rect.Rect(250,650,20,20)
-
-
-
-    #assign variable to aritfact
-
-    artifact=pygame.rect.Rect(10,650,10,10)
-    artifact1=pygame.rect.Rect(150,650,10,10)
-    artifact2=pygame.rect.Rect(290,650,10,10)
-    artifact3=pygame.rect.Rect(430,650,10,10)
-    
+    #Color of coffins
+    colorcoffin = BROWN
 
     
+    #Color of mummys
+    colormummy = WHITE
 
+
+    #Color of frog
+    colorfrog = GREEN
+
+    #Color of artifact
+    colorartifact = LIGHTBLUE
+
+    
+    #Variables-------------------------
+    
+    
+    #frog
+    frog = pygame.rect.Rect(250,680,20,20)
+    
+    #artifact
+    artifact = pygame.rect.Rect(300,250,10,10)
+    
     #daggers
-
-    dagger=pygame.rect.Rect(0,400,70,20)
-
-    dagger1=pygame.rect.Rect(200,400,70,20)
-
-
-
-    dagger2=pygame.rect.Rect(100,450,70,20)
-
-    dagger3=pygame.rect.Rect(300,450,70,20)
-
-
-
-    dagger4=pygame.rect.Rect(0,500,70,20)
-
+    dagger = pygame.rect.Rect(0,640,70,20)
     
-
-    dagger5=pygame.rect.Rect(400,550,70,20)
-
-    dagger6=pygame.rect.Rect(600,550,70,20)
+    dagger1 = pygame.rect.Rect(200,640,70,20)
+    
+    dagger2 = pygame.rect.Rect(400,640,70,20)
+    
+    dagger3 = pygame.rect.Rect(350,610,70,20)
+    
+    dagger4 = pygame.rect.Rect(400,580,70,20)
+    
+    dagger5 = pygame.rect.Rect(250,580,70,20)
+    
 
     #stones
+    stone=pygame.rect.Rect(0,50,40,40)
 
-    stone=pygame.rect.Rect(100,100,30,40)
+    stone1=pygame.rect.Rect(100,50,40,40)
+    
+    stone2=pygame.rect.Rect(450,50,40,40)
+    
+    stone3=pygame.rect.Rect(300,90,40,40)
 
-    stone1=pygame.rect.Rect(200,100,30,40)
+    stone4=pygame.rect.Rect(450,90,40,40)
+
+    stone5=pygame.rect.Rect(100,90,40,40)
+
+    #mummys
+    mummy = pygame.rect.Rect(0,450,20,50)
+    mummyx_change=0
+    mummy1 = pygame.rect.Rect(0,400,20,50)
+    mummy1x_change = 0
+    mummy2 = pygame.rect.Rect(480,350,20,50)
+    mummy2x_change = 0
+    mummy3 = pygame.rect.Rect(0,300,30,50)
+    mummy3x_change = 0
+    mummy4 = pygame.rect.Rect(0,250,30,50)
+    mummy4x_change = 0
+    
+    
+    
+    
+    
+
+    #coffins
+    coffin = pygame.rect.Rect(250,450,20,50)
+    coffin1 = pygame.rect.Rect(100 ,400,20,50)
+    coffin2 = pygame.rect.Rect(450 ,350,20,50)
+    coffin3 = pygame.rect.Rect(150 ,300,20,50)
+    coffin4 = pygame.rect.Rect(300,250,20,50)
 
     
 
 
 
-    stone3=pygame.rect.Rect(300,150,30,40)
+    #Lists-------------------------------
 
-    stone4=pygame.rect.Rect(400,150,30,40)
+    #-stone lists-
+    stonelist=[stone, stone1, stone2]
 
-    stone5=pygame.rect.Rect(500,150,30,40)
+    stone1list=[stone3, stone4, stone5]
 
+    #-dagger lists-
+    daggerlist=[dagger,dagger1, dagger2]
 
+    dagger1list=[dagger3]
 
-    stone6=pygame.rect.Rect(500,200,30,40)
+    dagger2list=[dagger4, dagger5]
 
-    stone7=pygame.rect.Rect(100,200,30,40)
-
-
-
-    stone8=pygame.rect.Rect(200,250,30,40)
-
-    stone9=pygame.rect.Rect(300,250,30,40)
-
-    stone10=pygame.rect.Rect(400,250,30,40)
-
+    #-mummy list-
     
 
-    #lists 
-
-    daggerlist=[dagger,dagger1]
-
-    dagger2list=[dagger2,dagger3]
-
-    dagger3list=[dagger4]
-
-    dagger4list=[dagger5,dagger6]
-
+    #coffin list-
+    coffinlist=[coffin,coffin1,coffin2,coffin3,coffin4]
     
 
-    stonelist=[stone,stone1] 
-
-    stone2list=[stone3,stone4,stone5]
-
-    stone3list=[stone6,stone7]
-
-    stone4list=[stone8,stone9,stone10]
-
-    
-
-    # Below is the game loop.  It erases the old screen, changes the position
-
-    # and draws the new screen.
-
-    
-
+    #Game loop------------------------------
     while True:
 
-
-
-
-
-        #moving the frog
-
-        
-
         for event in pygame.event.get():
+             if event .type == pygame.QUIT:
+                 pygame.quit()
+                 sys.exit()
+                 
+             #Moving the frog-----------------------------------    
+             if event.type == pygame.KEYDOWN:
 
-            if event.type == pygame.QUIT:
+                 if event.key == pygame.K_LEFT:
 
-                pygame.quit()
+                     frog.x-=10
 
-                sys.exit()
+                     if frog.x==artifact.x-10 and frog.y==artifact.y:
 
-            if event.type == pygame.KEYDOWN:
+                         artifact.x-=10
 
+                 elif event.key== pygame.K_RIGHT:
 
+                     frog.x+=10
 
-                if event.key == pygame.K_LEFT:
+                     if frog.x==artifact.x+10 and frog.y==artifact.y:
 
-                    frog.x-=10
-                    
-                    if frog.x==artifact.x-10 and frog.y==artifact.y:
-                        
-                        artifact.x-=10
+                         artifact.x+=10
 
-                    elif frog.x==artifact1.x-10 and frog.y==artifact1.y:
-                        
-                        artifact1.x-=10
+                 elif event.key == pygame.K_DOWN:
 
-                    elif frog.x==artifact2.x-10 and frog.y==artifact2.y:
-                        
-                        artifact2.x-=10
+                     frog.y+=10
 
-                    elif frog.x==artifact3.x-10 and frog.y==artifact3.y:
-                        
-                        artifact3.x-=10
+                     if frog.y==artifact.y+10 and frog.x==artifact.x:
 
-                        
+                         artifact.y+=10
 
-                elif event.key== pygame.K_RIGHT:
+                 elif event.key == pygame.K_UP:
 
-                    frog.x+=10
-                    
-                    if frog.x==artifact.x+10 and frog.y==artifact.y:
+                     frog.y-=10
 
-                        artifact.x+=10
+                     if frog.y==artifact.y-10 and frog.x==artifact.x:
 
-                    elif frog.x==artifact1.x+10 and frog.y==artifact1.y:
+                         artifact.y-=10
 
-                        artifact1.x+=10
+        #Code for collision events--------------------
+        #dagger collide lists
+        hitdagger=frog.collidelist(daggerlist)
 
-                    elif frog.x==artifact2.x+10 and frog.y==artifact2.y:
+        hitdagger1=frog.collidelist(dagger1list)
 
-                        artifact2.x+=10
-
-                    elif frog.x==artifact3.x+10 and frog.y==artifact3.y:
-
-                        artifact3.x+=10
-
-                        
-
-                elif event.key == pygame.K_DOWN:
-
-                    frog.y+=10
-
-                    if frog.y==artifact.y+10 and frog.x==artifact.x:
-
-                        artifact.y+=10
-
-                    elif frog.y==artifact1.y+10 and frog.x==artifact1.x:
-
-                        artifact1.y+=10
-
-                    elif frog.y==artifact2.y+10 and frog.x==artifact2.x:
-
-                        artifact2.y+=10
-
-                    elif frog.y==artifact3.y+10 and frog.x==artifact3.x:
-
-                        artifact3.y+=10
-                        
-
-                elif event.key == pygame.K_UP:
-
-                    frog.y-=10
-
-                    if frog.y==artifact.y-10 and frog.x==artifact.x:
-
-                        artifact.y-=10
-
-                    elif frog.y==artifact1.y-10 and frog.x==artifact1.x:
-
-                        artifact1.y-=10
-
-                    elif frog.y==artifact2.y-10 and frog.x==artifact2.x:
-
-                        artifact2.y-=10
-
-                    elif frog.y==artifact3.y-10 and frog.x==artifact3.x:
-
-                        artifact3.y-=10
-                        
-                
-
-
-
-                
-
-                
-
-            
-
-        #when artifact arrives
-
-        if artifact.y <= 50:
-            artifact.x=10
-            artifact.y=10
-
-        if artifact1.y <= 50:
-            artifact1.x=150
-            artifact1.y=10
-
-        if artifact2.y <= 50:
-            artifact2.x=290
-            artifact2.y=10
-
-        if artifact3.y <= 50:
-            artifact3.x=430
-            artifact3.y=10
-                        
-
-        #events that happen when frog hits stone and dagger
-
-        hitblock=frog.collidelist(daggerlist)
-
-
-
-        hitblock5=frog.collidelist(dagger2list)
-
-        hitblock6=frog.collidelist(dagger3list)
-
-        hitblock7=frog.collidelist(dagger4list)
-
+        hitdagger2= frog.collidelist(dagger2list)
         
+        #stone collide lists
+        hitstone=frog.collidelist(stonelist)
 
-        hitblock1=frog.collidelist(stonelist)
+        hitstone1=frog.collidelist(stone1list)
 
+        #coffin collide lists
+        hitcoffin=frog.collidelist(coffinlist)
+        
+    
+    
+        #frog and stone
 
-
-        hitblock2=frog.collidelist(stone2list)
-
-
-
-        hitblock3=frog.collidelist(stone3list)
-
-
-
-        hitblock4=frog.collidelist(stone4list)
-
-        #event of frog going on stone
-
-        if hitblock1==0:
-
-            frog.x += 3
-
-            artifact.x +=3
-
-            artifact1.x +=3
-
-            artifact2.x +=3
-
-            artifact3.x +=3
-
-            
-
-        elif hitblock1==1:
+        if hitstone==0 or hitstone==1 or hitstone==2:
 
             frog.x += 5
 
-            artifact.x +=5
+            artifact.x+=5
 
-            artifact1.x +=5
-
-            artifact2.x +=5
-
-            artifact3.x +=5
-
-
-
-        elif hitblock2==0 or hitblock2==1 or hitblock2==2:
+        elif hitstone1==0 or hitstone1==1 or hitstone1==2:
 
             frog.x -= 4
 
             artifact.x -=4
 
-            artifact1.x -=4
+        #frog and dagger
 
-            artifact2.x -=4
+        if hitdagger==0 or hitdagger==1 or hitdagger==2:
+            
+            frog.x = 250
 
-            artifact3.x -=4
+            frog.y = 680
+
+            artifact.x = 300
+
+            artifact.y = 250
+
+
+        if hitdagger1==0:
+            
+            frog.x = 250
+
+            frog.y = 680
+
+            artifact.x = 300
+
+            artifact.y = 250
+
+        if hitdagger2==0 or hitdagger2==1:
+            
+            frog.x = 250
+
+            frog.y = 680
+
+            artifact.x = 300
+
+            artifact.y = 250
+
+        #frog and coffin
+
+        mummy.x += mummyx_change
+        mummy1.x += mummy1x_change
+        mummy2.x -= mummy2x_change
+        mummy3.x += mummy3x_change
+        mummy4.x += mummy4x_change
+
+        for i in range(0,5):
+            coffin_choose.append(random.randint(0,1))
 
         
 
-        elif hitblock3==0 or hitblock3==1:
+        
 
-            frog.x += 10
+        if hitcoffin==0:
+            if coffin_choose[i]==0:
+                mummyx_change = 5
+                mummy_move += 1
 
-            artifact.x +=10
+            elif coffin_choose[i]==1:
+                
+                
+                artifact.x=280
+                artifact.y=450
+                artifact_appear +=1
 
-            artifact1.x +=10
+        if hitcoffin==1:
 
-            artifact2.x +=10
+            
+                
+            if coffin_choose[i]==0:
+                mummy1x_change = 5
+                mummy_move += 1
 
-            artifact3.x +=10
-
-
-
-        elif hitblock4==0 or hitblock4==1 or hitblock4==2:
-
-            frog.x += 4
-
-            artifact.x +=4
-
-            artifact1.x +=4
-
-            artifact2.x +=4
-
-            artifact3.x +=4
-
-
-
-#dagger kill
-
-
-
-        elif hitblock==0 or hitblock==1:
-
-            frog.x = 250
-
-            frog.y = 650
-
-            artifact.x = 10
-
-            artifact.y = 650
-
-            artifact1.x = 150
-
-            artifact1.y = 650
-
-            artifact2.x = 290
-
-            artifact2.y = 650
-
-            artifact3.x = 430
-
-            artifact3.y = 650
+            elif coffin_choose[i]==1:
+                artifact.x=280
+                artifact.y=450
+                artifact_appear +=1
 
             
 
-        elif hitblock5==0 or hitblock5==1:
+        if hitcoffin==2:
+           
+                
+            if coffin_choose[i]==0:
+                mummy2x_change = 5
+                mummy_move += 1
 
-            frog.x = 250
+            elif coffin_choose[i]==1:
+                artifact.x=280
+                artifact.y=450
+                artifact_appear += 1
 
-            frog.y = 650
+        if hitcoffin==3:
+            
+            
+                
+            if coffin_choose[i]==0:
+                mummy3x_change = 5
+                mummy_move += 1
 
-            artifact.x = 10
+            elif coffin_choose[i]==1:
+                artifact.x=280
+                artifact.y=450
+                artifact_appear +=1
 
-            artifact.y = 650
-
-            artifact1.x = 150
-
-            artifact1.y = 650
-
-            artifact2.x = 290
-
-            artifact2.y = 650
-
-            artifact3.x = 430
-
-            artifact3.y = 650
+        if hitcoffin==4:
             
 
-
-
-        elif hitblock6==0:
-
-            frog.x = 250
-
-            frog.y = 650
-
-            artifact.x = 10
-
-            artifact.y = 650
-
-            artifact1.x = 150
-
-            artifact1.y = 650
-
-            artifact2.x = 290
-
-            artifact2.y = 650
-
-            artifact3.x = 430
-
-            artifact3.y = 650
             
-        elif hitblock7==0 or hitblock7==1:
+                
+            if coffin_choose[i]==0:
+                mummy4x_change = 5
+                mummy_move += 1
 
-            frog.x = 250
+            elif coffin_choose[i]==1:
+                artifact.x=280
+                artifact.y=450
+                artifact_appear += 1
 
-            frog.y = 650
 
-            artifact.x = 10
+        
 
-            artifact.y = 650
+                
 
-            artifact1.x = 150
 
-            artifact1.y = 650
-
-            artifact2.x = 290
-
-            artifact2.y = 650
-
-            artifact3.x = 430
-
-            artifact3.y = 650
-            
-
-        #for daggers to restart when they exit scrren    
-
+        #for dagger restart on screen
         for block in daggerlist:
 
             
@@ -510,158 +355,111 @@ def main():
 
 
 
-        for block5 in dagger2list:
+        for block1 in dagger1list:
 
             
 
-            block5.x = (block5.x-5)%700
+            block1.x = (block1.x-5)%700
 
             
 
-        for block6 in dagger3list:
+        for block2 in dagger2list:
 
             
 
-            block6.x = (block6.x+10)%700
+            block2.x = (block2.x+10)%700
+
+        #stone to restart screen
+        for block4 in stonelist:
+
+            block4.x = (block4.x+5)%700
 
 
 
-        for block7 in dagger4list:
+        for block5 in stone1list:
 
-            
-
-            block7.x = (block7.x+4)%700
-
-
-
-        #for stones to restart when they exit screen   
-
-        for block1 in stonelist:
-
-            
-
-            block1.x = (block1.x+5)%700
-
-
-
-        for block2 in stone2list:
-
-            
-
-            block2.x = (block2.x-4)%700
-
-
-
-        for block3 in stone3list:
-
-            
-
-            block3.x = (block3.x+10)%700
-
-            
-
-        for block4 in stone4list:
-
-            
-
-            block4.x = (block4.x+4)%700
-
-        
-
-
-
-
-
+            block5.x = (block5.x-4)%700
 
 
         
+            
+            
+        
+        #Redraw screen
+        main_surface.fill((0,0,0))
 
 
+        #Drawing codes-----------------------------------
 
-
-
-        # redraw the screen
-
-
-
-        main_surface.fill((0,0,0))  # make the background color black in this example
-
-
-
-        #draw stones
-
+        #Stones
         pygame.draw.rect(main_surface,colorstone,stone)
-
-        pygame.draw.rect(main_surface,colorstone1,stone1)
-
-        pygame.draw.rect(main_surface,colorstone2,stone3)
-
-        pygame.draw.rect(main_surface,colorstone2,stone4)
-
-        pygame.draw.rect(main_surface,colorstone2,stone5)
-
-        pygame.draw.rect(main_surface,colorstone2,stone6) 
-
-        pygame.draw.rect(main_surface,colorstone2,stone7)
-
-        pygame.draw.rect(main_surface,colorstone2,stone8)
-
-        pygame.draw.rect(main_surface,colorstone2,stone9)
-
-        pygame.draw.rect(main_surface,colorstone2,stone10)
-
+        pygame.draw.rect(main_surface,colorstone,stone1)
+        pygame.draw.rect(main_surface,colorstone,stone2)
+        pygame.draw.rect(main_surface,colorstone,stone3)
+        pygame.draw.rect(main_surface,colorstone,stone4)
+        pygame.draw.rect(main_surface,colorstone,stone5)
+        
         
 
-
-
-        #draw daggers
-
+        #Daggers
         pygame.draw.rect(main_surface,colordagger,dagger)
-
-        pygame.draw.rect(main_surface,colordagger1,dagger1)
-
+        pygame.draw.rect(main_surface,colordagger,dagger1)
         pygame.draw.rect(main_surface,colordagger,dagger2)
-
         pygame.draw.rect(main_surface,colordagger,dagger3)
-
         pygame.draw.rect(main_surface,colordagger,dagger4)
-
         pygame.draw.rect(main_surface,colordagger,dagger5)
-
-        pygame.draw.rect(main_surface,colordagger,dagger6)
-    
-
-        #draw frog      
-
-        pygame.draw.rect(main_surface, GREEN,frog)
-
-
-        #draw artifacts
-
-        pygame.draw.rect(main_surface,(70,100,150),artifact)
-        pygame.draw.rect(main_surface,(70,100,150),artifact1)
-        pygame.draw.rect(main_surface,(70,100,150),artifact2)
-        pygame.draw.rect(main_surface,(70,100,150),artifact3)
         
 
-    
 
-        # flip the drawn surface onto the monitor
+        #Mummys
+        pygame.draw.rect(main_surface,colormummy,mummy)
+        pygame.draw.rect(main_surface,colormummy,mummy1)
+        pygame.draw.rect(main_surface,colormummy,mummy2)
+        pygame.draw.rect(main_surface,colormummy,mummy3)
+        pygame.draw.rect(main_surface,colormummy,mummy4)
+        
 
+        #Frog
+        pygame.draw.rect(main_surface,colorfrog,frog)
+        
+
+        #artifact
+        pygame.draw.rect(main_surface,colorartifact,artifact)
+
+
+        #Coffins?
+        pygame.draw.rect(main_surface,colorcoffin,coffin)
+        pygame.draw.rect(main_surface,colorcoffin,coffin1)
+        pygame.draw.rect(main_surface,colorcoffin,coffin2)
+        pygame.draw.rect(main_surface,colorcoffin,coffin3)
+        pygame.draw.rect(main_surface,colorcoffin,coffin4)
+
+
+
+        #flip the drawn surface onto screen
         pygame.display.flip()
 
+        #speed
+        time.sleep(0.05)
+
+if __name__=='__main__':
+
+    main()
+        
+
+
+        
+
+
 
 
 
 
     
 
-       # keep it from going too fast
-
-        time.sleep(0.05)  
+    
 
 
 
-if __name__=='__main__':    
 
-    main()
+    
