@@ -266,6 +266,8 @@ def main():
         mummy2.x -= mummy2x_change
         mummy3.x += mummy3x_change
         mummy4.x += mummy4x_change
+        mummy[4].x += mummyx_change[4]
+        
 
         for i in range(0,5):
             coffin_choose.append(random.randint(0,1))
@@ -273,7 +275,15 @@ def main():
         
 
         
-
+        if hitcoffin !=-1:
+            if coffin_choose[hitcoffin]==0
+                mummyx_change[hitcoffin]=5
+                mummy_move+=1
+            else:
+                artifact_appear
+                
+                
+         
         if hitcoffin==0:
             if coffin_choose[i]==0:
                 mummyx_change = 5
