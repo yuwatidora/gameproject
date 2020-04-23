@@ -20,11 +20,13 @@ def main():
 
     coffin_choose = random.sample(n,8)
 
-    mummyx_change=[5,5,-5,5,5,-5,-5]
+    mummyx_change=[5,5,-5,5,5,-5,-5,-5]
 
     artifactx_pos = [280,130,330,180,330,30,430,480]
 
     artifacty_pos = [450,400,350,300,250,450,400,250]
+
+    carry_artifact = False
 
 
     #COLORs
@@ -77,6 +79,11 @@ def main():
     artifact = pygame.rect.Rect(300,250,10,10)
     artifact1 = pygame.rect.Rect(300,250,10,10)
     artifact2 = pygame.rect.Rect(300,250,10,10)
+    artifact3 = pygame.rect.Rect(300,250,10,10)
+    artifact4 = pygame.rect.Rect(300,250,10,10)
+    artifact5 = pygame.rect.Rect(300,250,10,10)
+    artifact6 = pygame.rect.Rect(300,250,10,10)
+    artifact7 = pygame.rect.Rect(300,250,10,10)
     
     #daggers
     dagger = pygame.rect.Rect(0,640,70,20)
@@ -157,7 +164,7 @@ def main():
 
     #artifact list-
 
-    artifactlist = [artifact,artifact1,artifact2]
+    artifactlist = [artifact,artifact1,artifact2,artifact3,artifact4,artifact5,artifact6,artifact7]
 
     #-mummy list-
     mummylist=[mummy,mummy1,mummy2,mummy3,mummy4,mummy5,mummy6, mummy7]
@@ -179,14 +186,16 @@ def main():
                  
              #Moving the frog-----------------------------------    
              if event.type == pygame.KEYDOWN:
-
                  if event.key == pygame.K_LEFT:
 
                      frog.x-=10
-
+                     
+                     
                      if frog.x==artifact.x-10 and frog.y==artifact.y:
 
                          artifact.x-=10
+
+                        
 
                  elif event.key== pygame.K_RIGHT:
 
@@ -212,12 +221,14 @@ def main():
 
                          artifact.y-=10
 
+
+
         #Code for collision events--------------------
         #dagger collide lists
         hitdagger=frog.collidelist(daggerlist)
 
         hitdagger1=frog.collidelist(dagger1list)
-
+  
         hitdagger2= frog.collidelist(dagger2list)
         
         #stone collide lists
@@ -227,8 +238,6 @@ def main():
 
         #coffin collide lists
         hitcoffin=frog.collidelist(coffinlist)
-
-        
 
         #mummy collide list
         hitmummy=frog.collidelist(mummylist)
@@ -288,10 +297,13 @@ def main():
 
 
         if hitcoffin != -1:
+            
             if coffin_choose[hitcoffin]==0:
                 mummylist[hitcoffin].x += mummyx_change[hitcoffin]
                 
+                
             else:
+                
                 artifactlist[hitcoffin].x = artifactx_pos[hitcoffin]
                 artifactlist[hitcoffin].y = artifacty_pos[hitcoffin]
                 
@@ -382,6 +394,11 @@ def main():
         pygame.draw.rect(main_surface,colorartifact,artifact)
         pygame.draw.rect(main_surface,colorartifact,artifact1)
         pygame.draw.rect(main_surface,colorartifact,artifact2)
+        pygame.draw.rect(main_surface,colorartifact,artifact3)
+        pygame.draw.rect(main_surface,colorartifact,artifact4)
+        pygame.draw.rect(main_surface,colorartifact,artifact5)
+        pygame.draw.rect(main_surface,colorartifact,artifact6)
+        pygame.draw.rect(main_surface,colorartifact,artifact7)
 
 
         #Coffins?
