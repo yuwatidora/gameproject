@@ -16,15 +16,16 @@ def main():
 
     #mummy parameters
     
-    mummyx_change=0
+    n=[0,0,0,0,0,1,1,1]
 
-    mummy_move = 0
+    coffin_choose = random.sample(n,8)
 
-    artifact_appear = 0
+    mummyx_change=[5,5,-5,5,5,-5,-5]
 
-    coffin_choose=[]
-    
-    
+    artifactx_pos = [280,130,330,180,330,30,430,480]
+
+    artifacty_pos = [450,400,350,300,250,450,400,250]
+
 
     #COLORs
     BLACK = (0,0,0)
@@ -74,6 +75,8 @@ def main():
     
     #artifact
     artifact = pygame.rect.Rect(300,250,10,10)
+    artifact1 = pygame.rect.Rect(300,250,10,10)
+    artifact2 = pygame.rect.Rect(300,250,10,10)
     
     #daggers
     dagger = pygame.rect.Rect(0,640,70,20)
@@ -104,15 +107,20 @@ def main():
 
     #mummys
     mummy = pygame.rect.Rect(0,450,20,50)
-    mummyx_change=0
+    
     mummy1 = pygame.rect.Rect(0,400,20,50)
-    mummy1x_change = 0
+    
     mummy2 = pygame.rect.Rect(480,350,20,50)
-    mummy2x_change = 0
-    mummy3 = pygame.rect.Rect(0,300,30,50)
-    mummy3x_change = 0
-    mummy4 = pygame.rect.Rect(0,250,30,50)
-    mummy4x_change = 0
+    
+    mummy3 = pygame.rect.Rect(0,300,20,50)
+    
+    mummy4 = pygame.rect.Rect(0,250,20,50)
+    
+    mummy5 = pygame.rect.Rect(480,450,20,50)
+
+    mummy6 = pygame.rect.Rect(480,400,20,50)
+
+    mummy7 = pygame.rect.Rect(480,250,20,50)
     
     
     
@@ -120,15 +128,18 @@ def main():
     
 
     #coffins
-    coffin = pygame.rect.Rect(250,450,20,50)
-    coffin1 = pygame.rect.Rect(100 ,400,20,50)
-    coffin2 = pygame.rect.Rect(450 ,350,20,50)
-    coffin3 = pygame.rect.Rect(150 ,300,20,50)
-    coffin4 = pygame.rect.Rect(300,250,20,50)
+    coffin = pygame.rect.Rect(250,450,30,50)
+    coffin1 = pygame.rect.Rect(100 ,400,30,50)
+    coffin2 = pygame.rect.Rect(300 ,350,30,50)
+    coffin3 = pygame.rect.Rect(150 ,300,30,50)
+    coffin4 = pygame.rect.Rect(300,250,30,50)
+    coffin5 = pygame.rect.Rect(0,450,30,50)
+    coffin6 = pygame.rect.Rect(400,400,30,50)
+    coffin7 = pygame.rect.Rect(450,250,30,50)
 
     
 
-
+    
 
     #Lists-------------------------------
 
@@ -144,11 +155,18 @@ def main():
 
     dagger2list=[dagger4, dagger5]
 
+    #artifact list-
+
+    artifactlist = [artifact,artifact1,artifact2]
+
     #-mummy list-
+    mummylist=[mummy,mummy1,mummy2,mummy3,mummy4,mummy5,mummy6, mummy7]
+
     
 
     #coffin list-
-    coffinlist=[coffin,coffin1,coffin2,coffin3,coffin4]
+    coffinlist=[coffin,coffin1,coffin2,coffin3,coffin4,coffin5,coffin6,coffin7]
+
     
 
     #Game loop------------------------------
@@ -209,7 +227,13 @@ def main():
 
         #coffin collide lists
         hitcoffin=frog.collidelist(coffinlist)
+
         
+
+        #mummy collide list
+        hitmummy=frog.collidelist(mummylist)
+
+       
     
     
         #frog and stone
@@ -260,102 +284,22 @@ def main():
             artifact.y = 250
 
         #frog and coffin
-
-        mummy.x += mummyx_change
-        mummy1.x += mummy1x_change
-        mummy2.x -= mummy2x_change
-        mummy3.x += mummy3x_change
-        mummy4.x += mummy4x_change
-        mummy[4].x += mummyx_change[4]
         
 
-        for i in range(0,5):
-            coffin_choose.append(random.randint(0,1))
 
-        
-
-        
-        if hitcoffin !=-1:
-            if coffin_choose[hitcoffin]==0
-                mummyx_change[hitcoffin]=5
-                mummy_move+=1
+        if hitcoffin != -1:
+            if coffin_choose[hitcoffin]==0:
+                mummylist[hitcoffin].x += mummyx_change[hitcoffin]
+                
             else:
-                artifact_appear
+                artifactlist[hitcoffin].x = artifactx_pos[hitcoffin]
+                artifactlist[hitcoffin].y = artifacty_pos[hitcoffin]
                 
+
                 
-         
-        if hitcoffin==0:
-            if coffin_choose[i]==0:
-                mummyx_change = 5
-                mummy_move += 1
-
-            elif coffin_choose[i]==1:
-                
-                
-                artifact.x=280
-                artifact.y=450
-                artifact_appear +=1
-
-        if hitcoffin==1:
-
-            
-                
-            if coffin_choose[i]==0:
-                mummy1x_change = 5
-                mummy_move += 1
-
-            elif coffin_choose[i]==1:
-                artifact.x=280
-                artifact.y=450
-                artifact_appear +=1
-
-            
-
-        if hitcoffin==2:
-           
-                
-            if coffin_choose[i]==0:
-                mummy2x_change = 5
-                mummy_move += 1
-
-            elif coffin_choose[i]==1:
-                artifact.x=280
-                artifact.y=450
-                artifact_appear += 1
-
-        if hitcoffin==3:
-            
-            
-                
-            if coffin_choose[i]==0:
-                mummy3x_change = 5
-                mummy_move += 1
-
-            elif coffin_choose[i]==1:
-                artifact.x=280
-                artifact.y=450
-                artifact_appear +=1
-
-        if hitcoffin==4:
-            
-
-            
-                
-            if coffin_choose[i]==0:
-                mummy4x_change = 5
-                mummy_move += 1
-
-            elif coffin_choose[i]==1:
-                artifact.x=280
-                artifact.y=450
-                artifact_appear += 1
 
 
         
-
-                
-
-
         #for dagger restart on screen
         for block in daggerlist:
 
@@ -391,10 +335,7 @@ def main():
             block5.x = (block5.x-4)%700
 
 
-        
-            
-            
-        
+          
         #Redraw screen
         main_surface.fill((0,0,0))
 
@@ -427,6 +368,10 @@ def main():
         pygame.draw.rect(main_surface,colormummy,mummy2)
         pygame.draw.rect(main_surface,colormummy,mummy3)
         pygame.draw.rect(main_surface,colormummy,mummy4)
+        pygame.draw.rect(main_surface,colormummy,mummy5)
+        pygame.draw.rect(main_surface,colormummy,mummy6)
+        pygame.draw.rect(main_surface,colormummy,mummy7)
+        
         
 
         #Frog
@@ -435,6 +380,8 @@ def main():
 
         #artifact
         pygame.draw.rect(main_surface,colorartifact,artifact)
+        pygame.draw.rect(main_surface,colorartifact,artifact1)
+        pygame.draw.rect(main_surface,colorartifact,artifact2)
 
 
         #Coffins?
@@ -443,6 +390,10 @@ def main():
         pygame.draw.rect(main_surface,colorcoffin,coffin2)
         pygame.draw.rect(main_surface,colorcoffin,coffin3)
         pygame.draw.rect(main_surface,colorcoffin,coffin4)
+        pygame.draw.rect(main_surface,colorcoffin,coffin5)
+        pygame.draw.rect(main_surface,colorcoffin,coffin6)
+        pygame.draw.rect(main_surface,colorcoffin,coffin7)
+        
 
 
 
