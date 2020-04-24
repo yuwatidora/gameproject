@@ -244,7 +244,7 @@ def main():
 
        # determine the artifact that the player collides with from a list of artifacts
        # and store in a variable hitartifact
-       # carryingartifact = hitartifact
+       # if hitartifact != -1:   carryingartifact = hitartifact
        # carrartifactlist[carryingartifact] gets moved if carryingartifact !=-1
        
        
