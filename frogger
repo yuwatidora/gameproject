@@ -242,6 +242,12 @@ def main():
         #mummy collide list
         hitmummy=frog.collidelist(mummylist)
 
+       # determine the artifact that the player collides with from a list of artifacts
+       # and store in a variable hitartifact
+       # carryingartifact = hitartifact
+       # carrartifactlist[carryingartifact] gets moved if carryingartifact !=-1
+       
+       
        
     
     
