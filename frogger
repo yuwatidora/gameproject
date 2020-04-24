@@ -294,13 +294,14 @@ def main():
 
         #frog and coffin
         
-
+        # for i in range(number_of_coffines):
+        #    mummylist[i].x += mummyx_change[i]
 
         if hitcoffin != -1:
             
             if coffin_choose[hitcoffin]==0:
-                mummylist[hitcoffin].x += mummyx_change[hitcoffin]
-                
+                #mummylist[hitcoffin].x += mummyx_change[hitcoffin]
+                # mummyx_change[hitcoffin]=1
                 
             else:
                 
