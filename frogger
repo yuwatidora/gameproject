@@ -15,8 +15,10 @@ def main():
     #initialize parameters before the loop
 
     #mummy parameters
-    
-    ##mummyxposchange = [0,0,0,0,0,0,0,0]
+
+    hitartifact = -1
+
+    mummyxposchange = [0,0,0,0,0,0,0,0]
     
     n=[0,0,0,0,0,1,1,1]
 
@@ -28,8 +30,10 @@ def main():
 
     artifacty_pos = [450,400,350,300,250,450,400,250]
 
-    
+    carry_artifact = []
 
+    
+        
 
     #COLORs
     BLACK = (0,0,0)
@@ -167,7 +171,7 @@ def main():
     #artifact list-
 
     artifactlist = [artifact,artifact1,artifact2,artifact3,artifact4,artifact5,artifact6,artifact7]
-
+    
     #-mummy list-
     mummylist=[mummy,mummy1,mummy2,mummy3,mummy4,mummy5,mummy6, mummy7]
 
@@ -188,40 +192,44 @@ def main():
                  
              #Moving the frog-----------------------------------    
              if event.type == pygame.KEYDOWN:
+                 
                  if event.key == pygame.K_LEFT:
 
                      frog.x-=10
                      
                      
-                     if frog.x==artifact.x-10 and frog.y==artifact.y:
+                     if hitartifact != -1:
 
-                         artifact.x-=10
+                         carry_artifact[0].x -=10
 
-                        
 
                  elif event.key== pygame.K_RIGHT:
 
                      frog.x+=10
 
-                     if frog.x==artifact.x+10 and frog.y==artifact.y:
+                     if hitartifact != -1:
+                         
+                         carry_artifact[0].x += 10
 
-                         artifact.x+=10
+
 
                  elif event.key == pygame.K_DOWN:
 
                      frog.y+=10
 
-                     if frog.y==artifact.y+10 and frog.x==artifact.x:
+                     if hitartifact != -1:
 
-                         artifact.y+=10
+                         carry_artifact[0].y += 10
+
+
 
                  elif event.key == pygame.K_UP:
 
                      frog.y-=10
 
-                     if frog.y==artifact.y-10 and frog.x==artifact.x:
+                     if hitartifact != -1:
 
-                         artifact.y-=10
+                         carry_artifact[0].y -= 10
 
 
 
@@ -244,40 +252,39 @@ def main():
         #mummy collide list
         hitmummy=frog.collidelist(mummylist)
 
-       # determine the artifact that the player collides with from a list of artifacts
-       # and store in a variable hitartifact
-       # if hitartifact != -1:   carryingartifact = hitartifact
-       # carrartifactlist[carryingartifact] gets moved if carryingartifact !=-1
-       
-       
-       
+        #artifact collide list
+        hitartifact = frog.collidelist(artifactlist)
+
+
     
     
         #frog and stone
 
-        if hitstone==0 or hitstone==1 or hitstone==2:
+        if hitstone != -1:
 
             frog.x += 5
 
-            artifact.x+=5
+            if hitartifact != -1:
 
-        elif hitstone1==0 or hitstone1==1 or hitstone1==2:
+                carry_artifact[0].x+=5
+
+        elif hitstone1 != -1:
 
             frog.x -= 4
 
-            artifact.x -=4
+            if hitartifact != -1:
+
+                carry_arifact[0].x -=4
 
         #frog and dagger
 
-        if hitdagger==0 or hitdagger==1 or hitdagger==2:
+        if hitdagger!= -1:
             
             frog.x = 250
 
             frog.y = 680
 
-            artifact.x = 300
-
-            artifact.y = 250
+            
 
 
         if hitdagger1==0:
@@ -286,47 +293,47 @@ def main():
 
             frog.y = 680
 
-            artifact.x = 300
+            
 
-            artifact.y = 250
-
-        if hitdagger2==0 or hitdagger2==1:
+        if hitdagger2 != -1:
             
             frog.x = 250
 
             frog.y = 680
 
-            artifact.x = 300
-
-            artifact.y = 250
+            
 
         #frog and coffin
         
-       
- ## I tried doing the codes I commented and I would like to know what is going on when I did that
- 
-        # this is OK. Should work.
-        
-        ##for i in range(8):
-            ##mummylist[i].x += mummyxposchange[i]
-
+        for i in range(8):
+            mummylist[i].x += mummyxposchange[i]
 
         if hitcoffin != -1:
             
             if coffin_choose[hitcoffin]==0:
                 
-                # why not mummyxposchange[hitcoffin]=10    or something like that instead of what you have below.
+                mummyxposchange.remove(mummyxposchange[hitcoffin])
+                mummyxposchange.insert(hitcoffin,mummyx_change[hitcoffin])
                 
-                ##mummyxposchange.remove(mummyxposchange[hitcoffin])
-                ##mummyxposchange.insert(hitcoffin,mummyx_change[hitcoffin])
-                
-               
+                                
                 
             else:
                 
                 artifactlist[hitcoffin].x = artifactx_pos[hitcoffin]
                 artifactlist[hitcoffin].y = artifacty_pos[hitcoffin]
+
+        #frog and artifact
                 
+        if hitartifact != 1:
+
+            carry_artifact.append(artifactlist[hitartifact])
+            artifactlist.remove(artifactlist[hitartifact])
+
+        #leaving artifact at the top
+
+        if carry_artifact[0].y <= 55:
+
+            carry_artifact.remove(carry_artifact[0])
 
                 
 
@@ -365,6 +372,9 @@ def main():
         for block5 in stone1list:
 
             block5.x = (block5.x-4)%700
+
+
+        #mummy to restart the screen
 
 
           
@@ -447,6 +457,21 @@ if __name__=='__main__':
 
 
         
+
+
+
+
+
+
+    
+
+    
+
+
+
+
+    
+
 
 
 
