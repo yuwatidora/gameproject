@@ -16,6 +16,8 @@ def main():
 
     #mummy parameters
     
+    ##mummyxposchange = [0,0,0,0,0,0,0,0]
+    
     n=[0,0,0,0,0,1,1,1]
 
     coffin_choose = random.sample(n,8)
@@ -300,14 +302,20 @@ def main():
 
         #frog and coffin
         
-        # for i in range(number_of_coffines):
-        #    mummylist[i].x += mummyx_change[i]
+       
+ ## I tried doing the codes I commented and I would like to know what is going on when I did that
+ 
+        ##for i in range(8):
+            ##mummylist[i].x += mummyxposchange[i]
+
 
         if hitcoffin != -1:
             
             if coffin_choose[hitcoffin]==0:
-                #mummylist[hitcoffin].x += mummyx_change[hitcoffin]
-                # mummyx_change[hitcoffin]=1
+                
+                ##mummyxposchange.remove(mummyxposchange[hitcoffin])
+                ##mummyxposchange.insert(hitcoffin,mummyx_change[hitcoffin])
+
                 
             else:
                 
