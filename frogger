@@ -305,6 +305,8 @@ def main():
        
  ## I tried doing the codes I commented and I would like to know what is going on when I did that
  
+        # this is OK. Should work.
+        
         ##for i in range(8):
             ##mummylist[i].x += mummyxposchange[i]
 
@@ -313,9 +315,12 @@ def main():
             
             if coffin_choose[hitcoffin]==0:
                 
+                # why not mummyxposchange[hitcoffin]=10    or something like that instead of what you have below.
+                
                 ##mummyxposchange.remove(mummyxposchange[hitcoffin])
                 ##mummyxposchange.insert(hitcoffin,mummyx_change[hitcoffin])
-
+                
+               
                 
             else:
                 
