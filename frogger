@@ -15,6 +15,7 @@ def main():
     #initialize parameters before the loop
 
     #mummy parameters
+    font = pygame.font.SysFont('Calibri',25,True,False)
 
     hitartifact = -1
 
@@ -26,11 +27,19 @@ def main():
 
     mummyx_change=[5,5,-5,5,5,-5,-5,-5]
 
-    artifactx_pos = [280,130,330,180,330,30,430,480]
+    artifactx_pos = [280,130,330,180,330,30,430,440]
 
     artifacty_pos = [450,400,350,300,250,450,400,250]
 
-    carry_artifact = []
+    carry_artifact =[]
+
+    life = 3
+
+    score = 0
+
+    level = (score//3) +10
+
+    
 
     
         
@@ -80,25 +89,27 @@ def main():
     
     #frog
     frog = pygame.rect.Rect(250,680,20,20)
+
+    
     
     #artifact
-    artifact = pygame.rect.Rect(300,250,10,10)
-    artifact1 = pygame.rect.Rect(300,250,10,10)
-    artifact2 = pygame.rect.Rect(300,250,10,10)
-    artifact3 = pygame.rect.Rect(300,250,10,10)
-    artifact4 = pygame.rect.Rect(300,250,10,10)
-    artifact5 = pygame.rect.Rect(300,250,10,10)
-    artifact6 = pygame.rect.Rect(300,250,10,10)
-    artifact7 = pygame.rect.Rect(300,250,10,10)
+    artifact = pygame.rect.Rect(600,250,10,10)
+    artifact1 = pygame.rect.Rect(600,250,10,10)
+    artifact2 = pygame.rect.Rect(600,250,10,10)
+    artifact3 = pygame.rect.Rect(600,250,10,10)
+    artifact4 = pygame.rect.Rect(600,250,10,10)
+    artifact5 = pygame.rect.Rect(600,250,10,10)
+    artifact6 = pygame.rect.Rect(600,250,10,10)
+    artifact7 = pygame.rect.Rect(600,250,10,10)
     
     #daggers
     dagger = pygame.rect.Rect(0,640,70,20)
     
     dagger1 = pygame.rect.Rect(200,640,70,20)
     
-    dagger2 = pygame.rect.Rect(400,640,70,20)
+    dagger2 = pygame.rect.Rect(400,620,70,20)
     
-    dagger3 = pygame.rect.Rect(350,610,70,20)
+    dagger3 = pygame.rect.Rect(350,600,70,20)
     
     dagger4 = pygame.rect.Rect(400,580,70,20)
     
@@ -106,17 +117,17 @@ def main():
     
 
     #stones
-    stone=pygame.rect.Rect(0,50,40,40)
+    stone=pygame.rect.Rect(0,60,40,40)
 
-    stone1=pygame.rect.Rect(100,50,40,40)
+    stone1=pygame.rect.Rect(100,60,40,40)
     
-    stone2=pygame.rect.Rect(450,50,40,40)
+    stone2=pygame.rect.Rect(450,60,40,40)
     
-    stone3=pygame.rect.Rect(300,90,40,40)
+    stone3=pygame.rect.Rect(300,100,40,40)
 
-    stone4=pygame.rect.Rect(450,90,40,40)
+    stone4=pygame.rect.Rect(450,100,40,40)
 
-    stone5=pygame.rect.Rect(100,90,40,40)
+    stone5=pygame.rect.Rect(100,100,40,40)
 
     #mummys
     mummy = pygame.rect.Rect(0,450,20,50)
@@ -135,10 +146,6 @@ def main():
 
     mummy7 = pygame.rect.Rect(480,250,20,50)
     
-    
-    
-    
-    
 
     #coffins
     coffin = pygame.rect.Rect(250,450,30,50)
@@ -149,6 +156,9 @@ def main():
     coffin5 = pygame.rect.Rect(0,450,30,50)
     coffin6 = pygame.rect.Rect(400,400,30,50)
     coffin7 = pygame.rect.Rect(450,250,30,50)
+
+   
+    
 
     
 
@@ -180,6 +190,13 @@ def main():
     #coffin list-
     coffinlist=[coffin,coffin1,coffin2,coffin3,coffin4,coffin5,coffin6,coffin7]
 
+    #goal list
+    
+    
+
+    
+    
+
     
 
     #Game loop------------------------------
@@ -195,41 +212,52 @@ def main():
                  
                  if event.key == pygame.K_LEFT:
 
-                     frog.x-=10
+                     frog.x-=20
                      
                      
-                     if hitartifact != -1:
+                     if carry_artifact != []:
 
-                         carry_artifact[0].x -=10
-
+                         carry_artifact[0].x -=20
 
                  elif event.key== pygame.K_RIGHT:
 
-                     frog.x+=10
+                     frog.x+=20
 
-                     if hitartifact != -1:
+                     if carry_artifact != []:
                          
-                         carry_artifact[0].x += 10
+                         carry_artifact[0].x += 20
 
 
 
                  elif event.key == pygame.K_DOWN:
 
-                     frog.y+=10
+                     frog.y+=20
 
-                     if hitartifact != -1:
+                     if carry_artifact != []:
 
-                         carry_artifact[0].y += 10
+                         carry_artifact[0].y += 20
 
 
 
                  elif event.key == pygame.K_UP:
 
-                     frog.y-=10
+                     frog.y-=20
 
-                     if hitartifact != -1:
+                     if carry_artifact != []:
 
-                         carry_artifact[0].y -= 10
+                         carry_artifact[0].y -= 20
+
+        #Quit if you die three times
+             if life==0:
+                 done = False
+
+                 pygame.quit()
+
+                 sys.exit()
+
+                 
+
+                 
 
 
 
@@ -264,7 +292,7 @@ def main():
 
             frog.x += 5
 
-            if hitartifact != -1:
+            if carry_artifact != []:
 
                 carry_artifact[0].x+=5
 
@@ -272,10 +300,10 @@ def main():
 
             frog.x -= 4
 
-            if hitartifact != -1:
+            if carry_artifact != []:
 
-                carry_arifact[0].x -=4
-
+                carry_artifact[0].x -=4
+ 
         #frog and dagger
 
         if hitdagger!= -1:
@@ -283,6 +311,8 @@ def main():
             frog.x = 250
 
             frog.y = 680
+
+            life -= 1
 
             
 
@@ -293,6 +323,8 @@ def main():
 
             frog.y = 680
 
+            life -= 1
+
             
 
         if hitdagger2 != -1:
@@ -300,6 +332,8 @@ def main():
             frog.x = 250
 
             frog.y = 680
+
+            life -= 1
 
             
 
@@ -311,33 +345,105 @@ def main():
         if hitcoffin != -1:
             
             if coffin_choose[hitcoffin]==0:
-                
-                mummyxposchange.remove(mummyxposchange[hitcoffin])
-                mummyxposchange.insert(hitcoffin,mummyx_change[hitcoffin])
-                
+
+                mummyxposchange[hitcoffin] = mummyx_change[hitcoffin]                
                                 
                 
-            else:
+            elif coffin_choose[hitcoffin]==1:
                 
                 artifactlist[hitcoffin].x = artifactx_pos[hitcoffin]
                 artifactlist[hitcoffin].y = artifacty_pos[hitcoffin]
 
+                coffin_choose[hitcoffin] = 2
+
         #frog and artifact
                 
-        if hitartifact != 1:
+        if hitartifact != -1 and carry_artifact == []:
 
             carry_artifact.append(artifactlist[hitartifact])
-            artifactlist.remove(artifactlist[hitartifact])
+
 
         #leaving artifact at the top
-
-        if carry_artifact[0].y <= 55:
-
-            carry_artifact.remove(carry_artifact[0])
-
+        if carry_artifact != []:
+            if carry_artifact[0].y <= 30:
+                carry_artifact[0].y = 10
                 
+                del carry_artifact[0]
+                score += 1
 
+        
 
+        
+        
+        
+
+        #frog and mummy
+        if hitmummy != -1:
+            frog.x = 250
+
+            frog.y = 680
+
+            if carry_artifact != []:
+                
+                carry_artifact[0].x = 600
+                carry_artifact[0].y = 250
+                
+                del carry_artifact[0]
+
+                coffin_choose[hitartifact] = 1
+
+                life -=1
+
+        #frog and not going over bounderies
+        if frog.x <=0 or frog.x>=500 :
+
+            frog.x = 250
+
+            frog.y = 680
+
+            if carry_artifact != []:
+                
+                carry_artifact[0].x = 600
+                carry_artifact[0].y = 250
+                
+                del carry_artifact[0]
+
+                coffin_choose[hitartifact] = 1
+
+                life -=1
+
+        #frog and not going on stone
+        if hitstone == -1 and hitstone1 == -1:
+            
+            if frog.y >55 and frog.y<140:
+                frog.x = 250
+
+                frog.y = 680
+
+                if carry_artifact != []:
+
+                    carry_artifact[0].x = 600
+                    carry_artifact[0].y = 250
+                
+                    del carry_artifact[0]
+
+                    coffin_choose[hitartifact] = 1
+
+                life -=1
+                    
+        font = pygame.font.Font('freesansbold.ttf', 20)
+
+        text = "Score:" + str(score)
+
+        text = font.render(text, True, colordagger, colorstone) 
+
+        textRect = text.get_rect()
+
+        textRect.center = (50,680 )
+       
+                
+                
+        
         
         #for dagger restart on screen
         for block in daggerlist:
@@ -374,7 +480,16 @@ def main():
             block5.x = (block5.x-4)%700
 
 
-        #mummy to restart the screen
+        
+        #mummy to restart screen
+        for block6 in mummylist:
+
+            block6.x = (block6.x)%500
+
+        #Draw score on screen
+
+
+
 
 
           
@@ -440,8 +555,14 @@ def main():
         pygame.draw.rect(main_surface,colorcoffin,coffin5)
         pygame.draw.rect(main_surface,colorcoffin,coffin6)
         pygame.draw.rect(main_surface,colorcoffin,coffin7)
-        
 
+       
+        
+         #text            
+        main_surface.blit(text, textRect)
+
+        pygame.display.update()
+       
 
 
         #flip the drawn surface onto screen
@@ -466,6 +587,12 @@ if __name__=='__main__':
     
 
     
+
+
+
+
+    
+
 
 
 
