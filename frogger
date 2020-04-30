@@ -1,3 +1,18 @@
+####--------------------MUMMY FROGGER----------------------------------
+##Description:
+##
+##Frogger, but you have to find three artifacts in the coffins and
+##take it to the portal in the shape of an eye at the end.
+##Along the way you have to avoid daggers and mummies and ride on stones.
+##
+##You will also have to shoot fireballs along the way to pass.
+##
+##press 'a' to shoot to the left
+##press 's' to shoot to the right
+##press 'q' to shoot to the front
+##press 'z' to shoot backwards
+####----------------------------------------------------------------------
+
 import sys
 
 import pygame
@@ -5,18 +20,7 @@ import pygame
 import time
 
 import random
-
-
-
-##def main():
-
-##    pygame.init()
-##
-##    main_surface = pygame.display.set_mode((500,700))
-
-    #initialize parameters before the loop
-
-    #mummy parameters
+    
 
 def playlevel(level,main_surface):
 
@@ -27,8 +31,17 @@ def playlevel(level,main_surface):
     n=[0,0,0,0,0,1,1,1]
 
     coffin_choose = random.sample(n,8)
+    mummyx_change1=-6 - level
+    mummyx_change2=5 + level
+    mummyx_change3=-5 - level
+    mummyx_change4=5 + level
+    mummyx_change5=5 + level
+    mummyx_change6=-5 - level
+    mummyx_change7=-5 - level
+    mummyx_change8=-5 - level
 
-    mummyx_change=[-6,5,-5,5,5,-5,-5,-5]
+    mummyx_change=[mummyx_change1,mummyx_change2,mummyx_change3,mummyx_change4,
+                    mummyx_change5,mummyx_change6,mummyx_change7,mummyx_change8]
     
     artifactx_pos = [280,130,330,180,330,30,430,440]
 
@@ -115,8 +128,8 @@ def playlevel(level,main_surface):
 
     background.y = 0
 
-    #sound
-    mummy_sound = pygame.mixer.Sound("zombie.wav")
+    #Sound
+    click_sound = pygame.mixer.Sound("zombie.wav")
     
     
     #frog
@@ -203,6 +216,19 @@ def playlevel(level,main_surface):
 
     artifact7.y = 250
 
+    #fire
+
+    fire_image = pygame.image.load("fairy.png").convert()
+
+    fire = egg_image.get_rect()
+
+    fire.x = frog.x
+
+    fire.y = frog.y
+
+    fire_state = "ready"
+
+    fire_image.set_colorkey(BLACK)
     
     #daggers
     #dagger = pygame.rect.Rect(0,640,70,20)
@@ -567,12 +593,67 @@ def playlevel(level,main_surface):
     layer.x = 0
 
     layer.y = 500
+
+    #fireball
+
+    fireball_image =pygame.image.load("fireball.png").convert()
+
+    fireball = fireball_image.get_rect()
+
+    fireball.x = 0
+
+    fireball.y = 180
+
+    fireball_image.set_colorkey(BLACK)
+
+
+
+
+
+    fireball1_image =pygame.image.load("fireball.png").convert()
+
+    fireball1 = fireball1_image.get_rect()
+
+    fireball1.x = 100
+
+    fireball1.y = 180
+
+    fireball1_image.set_colorkey(BLACK)
+
+    
+
+    fireball2_image =pygame.image.load("fireball.png").convert()
+
+    fireball2 = fireball2_image.get_rect()
+
+    fireball2.x = 200
+
+    fireball2.y = 180
+
+    fireball2_image.set_colorkey(BLACK)
+
+
+
+    fireball3_image =pygame.image.load("fireball.png").convert()
+
+    fireball3 = fireball3_image.get_rect()
+
+    fireball3.x = 300
+
+    fireball3.y = 180
+
+    fireball3_image.set_colorkey(BLACK)
+
+
+
+    fireball4_image =pygame.image.load("fireball.png").convert()
+
+    fireball4 = fireball4_image.get_rect()
+    fireball4.x = 400 
+    fireball4.y = 180
+    fireball4_image.set_colorkey(BLACK)
+
    
-    
-
-    
-
-    
 
     #Lists-------------------------------
 
@@ -600,7 +681,10 @@ def playlevel(level,main_surface):
     #coffin list-
     coffinlist=[coffin,coffin1,coffin2,coffin3,coffin4,coffin5,coffin6,coffin7]
 
-    
+    #fireball list-
+    fireballlist =[fireball, fireball1, fireball2, fireball3, fireball4]
+
+  
 
     #Game loop------------------------------
     while True:
@@ -616,7 +700,7 @@ def playlevel(level,main_surface):
                  if event.key == pygame.K_LEFT:
 
                      frog.x-=20
-                     
+                     fire.x-=20
                      
                      if carry_artifact != []:
 
@@ -625,16 +709,18 @@ def playlevel(level,main_surface):
                  elif event.key== pygame.K_RIGHT:
 
                      frog.x+=20
+                     fire.x+=20
 
                      if carry_artifact != []:
                          
                          carry_artifact[0].x += 20
 
-
+                #firing the butterfly
 
                  elif event.key == pygame.K_DOWN:
 
                      frog.y+=20
+                     fire.y+=20
 
                      if carry_artifact != []:
 
@@ -645,12 +731,52 @@ def playlevel(level,main_surface):
                  elif event.key == pygame.K_UP:
 
                      frog.y-=20
+                     fire.y-=20
 
                      if carry_artifact != []:
 
                          carry_artifact[0].y -= 20
+                         
 
-                 
+                 elif event.key == pygame.K_s:
+
+                     fire.x = frog.x
+
+
+
+                     fire_state = "fire_right"
+
+                     main_surface.blit(fire_image, (fire.x + 16, fire.y + 10))
+
+
+
+                 elif event.key == pygame.K_a:
+                     fire.x = frog.x               
+
+                     fire_state = "fire_left"
+
+                     main_surface.blit(fire_image, (fire.x + 16, fire.y + 10))
+
+
+
+                 elif event.key == pygame.K_q:
+                     fire.y = frog.y               
+
+                     fire_state = "fire_up"
+
+                     main_surface.blit(fire_image, (fire.x + 16, fire.y + 10))
+
+
+
+                 elif event.key == pygame.K_z:
+
+                     fire.y = frog.y               
+
+                     fire_state = "fire_down"
+
+                     main_surface.blit(fire_image, (fire.x + 16, fire.y + 10))
+
+                
 
                  
 
@@ -678,7 +804,16 @@ def playlevel(level,main_surface):
         #artifact collide list
         hitartifact = frog.collidelist(artifactlist)
 
+        #goal and artifact collide list
+        hitgoal= goal.collidelist(artifactlist)
 
+        #fireball collide frog list
+
+        hitfireball = frog.collidelist(fireballlist)
+
+        #fire collide fireball list
+
+        hitfire = fire.collidelist(fireballlist)
     
     
         #frog and stone
@@ -686,6 +821,7 @@ def playlevel(level,main_surface):
         if hitstone != -1:
 
             frog.x += stonesd
+            fire.x += stonesd
 
             if carry_artifact != []:
 
@@ -694,6 +830,7 @@ def playlevel(level,main_surface):
         elif hitstone1 != -1:
 
             frog.x -= stonesd1
+            fire.x -= stonesd1
 
             if carry_artifact != []:
 
@@ -707,6 +844,10 @@ def playlevel(level,main_surface):
 
             frog.y = 680
 
+            fire.x = 250
+
+            fire.y = 680
+
             life -= 1
 
             
@@ -718,6 +859,10 @@ def playlevel(level,main_surface):
 
             frog.y = 680
 
+            fire.x = 250
+
+            fire.y = 680
+
             life -= 1
 
             
@@ -727,6 +872,10 @@ def playlevel(level,main_surface):
             frog.x = 250
 
             frog.y = 680
+
+            fire.x = 250
+
+            fire.y = 680
 
             life -= 1
 
@@ -742,7 +891,7 @@ def playlevel(level,main_surface):
             if coffin_choose[hitcoffin]==0:
 
                 mummyxposchange[hitcoffin] = mummyx_change[hitcoffin]                
-                mummy_sound.play()               
+                click_sound.play()               
                 
             elif coffin_choose[hitcoffin]==1:
                 
@@ -762,18 +911,66 @@ def playlevel(level,main_surface):
         if carry_artifact != []:
             if carry_artifact[0].y <= 30:
                 carry_artifact[0].y = 10
-                carry_artifact[0].x = 235
+                carry_artifact[0].x = 240
                 
+##                del carry_artifact[0]
+                
+            if hitgoal != -1:
+                carry_artifact[0].y = 800
                 del carry_artifact[0]
                 score += 1
+              
+        #fire and fireball
+
+        if hitfire == 0:
+
+            fireball.y = 900
+
+        if hitfire == 1:
+
+            fireball1.y =900
+
+        if hitfire == 2:
+
+            fireball2.y =900
+
+        if hitfire == 3:
+
+            fireball3.y =900
+
+        if hitfire == 4:
+
+            fireball4.y =900
 
 
-                
 
-        
+        #frog and fireball
 
-        
-        
+        if hitfireball !=-1:
+
+            frog.x = 250
+
+            frog.y =680
+
+            fire.x = 250
+            fire.y = 680
+
+            life-=1
+
+            if carry_artifact != []:
+     
+
+                carry_artifact[0].x = 600
+
+                carry_artifact[0].y = 250
+
+                del carry_artifact[0]
+
+                coffin_choose[hitartifact] = 1
+
+
+
+            
         
 
         #frog and mummy
@@ -781,6 +978,9 @@ def playlevel(level,main_surface):
             frog.x = 250
 
             frog.y = 680
+
+            fire.x=250
+            fire.y=680
 
             life -= 1
 
@@ -801,6 +1001,8 @@ def playlevel(level,main_surface):
             frog.x = 250
 
             frog.y = 680
+            fire.x=250
+            fire.y=680
 
             life -=1
 
@@ -822,6 +1024,9 @@ def playlevel(level,main_surface):
                 frog.x = 250
 
                 frog.y = 680
+                fire.x = 250
+                fire.y = 680
+                life-=1
 
                 if carry_artifact != []:
 
@@ -832,7 +1037,7 @@ def playlevel(level,main_surface):
 
                     coffin_choose[hitartifact] = 1
 
-                life -=1
+                
                     
         font = pygame.font.Font('freesansbold.ttf', 20)
 
@@ -890,6 +1095,59 @@ def playlevel(level,main_surface):
             block6.x = (block6.x)%500
 
         
+        #speed of fireballs
+
+
+
+        for block10 in fireballlist:
+
+            block10.x = (block10.x+15)%500
+
+
+
+
+
+        #firing
+
+
+
+        if fire_state is "fire_right":
+
+            fire.x +=20
+
+
+
+        if fire_state is "fire_left":
+
+            fire.x -= 20
+
+
+        if fire_state is "fire_up":          
+
+            fire.y -= 20
+
+        if fire_state is "fire_down":        
+
+            fire.y += 20
+
+            
+
+        if fire.x <= 0 or fire.x >=500:
+
+            fire.x = frog.x
+
+            fire.y = frog.y
+
+            fire_state = "ready"        
+
+        
+        if fire.y<0 or fire.y >700:
+
+            fire.y =frog.y
+
+            fire.x = frog.x
+
+            fire_state = "ready"
 
         
 
@@ -967,6 +1225,11 @@ def playlevel(level,main_surface):
         
         #Frog
         main_surface.blit(frog_image,frog)
+
+        #fire
+
+        main_surface.blit(fire_image,fire)
+
         
         #artifact
         main_surface.blit(egg_image,artifact)
@@ -1003,6 +1266,18 @@ def playlevel(level,main_surface):
         main_surface.blit(coffin_image,coffin7)
 
 
+        #fireball
+
+        main_surface.blit(fireball_image,fireball)
+
+        main_surface.blit(fireball_image,fireball1)
+
+        main_surface.blit(fireball_image,fireball2)
+
+        main_surface.blit(fireball_image,fireball3)
+
+        main_surface.blit(fireball_image,fireball4)
+
         
 
 
@@ -1031,9 +1306,10 @@ def playlevel(level,main_surface):
 
             life2.y = 800
 
+
         elif life==0:
 
-            life3.y = 800
+##            life3.y = 800
 
             done = False
 
@@ -1051,7 +1327,7 @@ def main():
     pygame.init()
 
     main_surface = pygame.display.set_mode((500,700))
-
+    
     for i in range (0,100):
         playlevel(i,main_surface)
                 
