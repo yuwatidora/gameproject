@@ -20,9 +20,40 @@ import pygame
 import time
 
 import random
+
+def start_screen(main_surface):
+    done= False
+    start_image = pygame.image.load("start.png").convert()
+
+    start = start_image.get_rect()
+
+    start.x = 0
+
+    start.y = 0
+
+    
+    
+    while True:
+        
+        main_surface.blit(start_image,start)
+
+        pygame.display.flip()
+        for event in pygame.event.get():
+            if event .type == pygame.QUIT:
+                 pygame.quit()
+                 sys.exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    done = True
+                    return
+        
+            
+
     
 
 def playlevel(level,main_surface):
+
+   
 
     hitartifact = -1
 
@@ -119,6 +150,7 @@ def playlevel(level,main_surface):
 
     
     #Variables-------------------------
+
     #background
     background_image = pygame.image.load("background.png").convert()
 
@@ -129,7 +161,7 @@ def playlevel(level,main_surface):
     background.y = 0
 
     #Sound
-    click_sound = pygame.mixer.Sound("zombie.wav")
+    mummy_sound = pygame.mixer.Sound("zombie.wav")
     
     
     #frog
@@ -684,7 +716,8 @@ def playlevel(level,main_surface):
     #fireball list-
     fireballlist =[fireball, fireball1, fireball2, fireball3, fireball4]
 
-  
+
+        
 
     #Game loop------------------------------
     while True:
@@ -891,7 +924,7 @@ def playlevel(level,main_surface):
             if coffin_choose[hitcoffin]==0:
 
                 mummyxposchange[hitcoffin] = mummyx_change[hitcoffin]                
-                click_sound.play()               
+                mummy_sound.play()               
                 
             elif coffin_choose[hitcoffin]==1:
                 
@@ -1311,7 +1344,7 @@ def playlevel(level,main_surface):
 
 ##            life3.y = 800
 
-            done = False
+##            done = False
 
             playlevel(0,main_surface)        
 
@@ -1327,7 +1360,8 @@ def main():
     pygame.init()
 
     main_surface = pygame.display.set_mode((500,700))
-    
+
+    start_screen(main_surface)
     for i in range (0,100):
         playlevel(i,main_surface)
                 
