@@ -28,9 +28,8 @@ def playlevel(level,main_surface):
 
     coffin_choose = random.sample(n,8)
 
-
     mummyx_change=[-6,5,-5,5,5,-5,-5,-5]
-
+    
     artifactx_pos = [280,130,330,180,330,30,430,440]
 
     artifacty_pos = [450,400,350,300,250,450,400,250]
@@ -115,6 +114,9 @@ def playlevel(level,main_surface):
     background.x = 0
 
     background.y = 0
+
+    #sound
+    mummy_sound = pygame.mixer.Sound("zombie.wav")
     
     
     #frog
@@ -740,7 +742,7 @@ def playlevel(level,main_surface):
             if coffin_choose[hitcoffin]==0:
 
                 mummyxposchange[hitcoffin] = mummyx_change[hitcoffin]                
-                                
+                mummy_sound.play()               
                 
             elif coffin_choose[hitcoffin]==1:
                 
@@ -816,7 +818,7 @@ def playlevel(level,main_surface):
         #frog and not going on stone
         if hitstone == -1 and hitstone1 == -1:
             
-            if frog.y >45 and frog.y<120:
+            if frog.y >35 and frog.y<110:
                 frog.x = 250
 
                 frog.y = 680
@@ -1017,7 +1019,7 @@ def playlevel(level,main_surface):
         #speed
         time.sleep(0.05)
 
-        
+               
         if score == 3:
 
             return
@@ -1035,7 +1037,7 @@ def playlevel(level,main_surface):
 
             done = False
 
-            playlevel(0,main_surface)
+            playlevel(0,main_surface)        
 
             
 
@@ -1050,15 +1052,9 @@ def main():
 
     main_surface = pygame.display.set_mode((500,700))
 
-    
-
     for i in range (0,100):
         playlevel(i,main_surface)
-        
-
-        
-
-        
+                
 
 main()
 
